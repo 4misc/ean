@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Éan Exhibition Space & Art Shop | Valerie Starovoit</title>
+  <meta name="description" content="Immerse yourself in contemporary fine art at Éan. Discover paintings and sculptures by Valerie Starovoit, Dublin-based award-winning artist. Explore our boutique art gallery and shop.">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       Header & Navigation
+       ========================================================================== -->
+  <header class="header" id="main-header">
+    <div class="container header-inner">
+      <!-- Gallery Logo -->
+      <a href="#hero" class="logo" id="header-logo">
+        Éan <span class="logo-symbol">✦</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery & Shop</a></li>
+          <li><a href="#curator" class="nav-link">Curator & Concept</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions (Cart, Mobile Toggle) -->
+      <div class="header-actions">
+        <button class="cart-trigger" id="cart-btn" aria-label="Open Shopping Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1,0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0,1-1.12-1.243l1.264-12A1.125 1.125 0 0,1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Zm7.5 0a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Z" />
+          </svg>
+          <span class="cart-badge" id="cart-counter">0</span>
+        </button>
+        
+        <button class="menu-trigger" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       Mobile Navigation Sidebar Drawer
+       ========================================================================== -->
+  <aside class="mobile-nav" id="mobile-navigation" aria-label="Mobile Navigation Menu">
+    <ul class="mobile-nav-links">
+      <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+      <li><a href="#gallery" class="mobile-nav-link">Gallery & Shop</a></li>
+      <li><a href="#curator" class="mobile-nav-link">Curator & Concept</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+      <p>Contemporary art gallery "Éan"</p>
+      <p>Valerie Starovoit &copy; 2026</p>
+      <p style="font-size: 0.75rem; margin-top: 1rem; color: var(--accent-gold);">Dublin, Ireland</p>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Main Content Area
+       ========================================================================== -->
+  <main>
+    
+    <!-- Hero Section (#hero) -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <!-- Airiness backdrop accent -->
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="hero-subtitle">Exhibition Space</div>
+          <h1 class="hero-title">The lightness of a <span>bird's flight</span>.</h1>
+          <p class="hero-tagline">
+            Welcome to Éan. A Dublin-based exhibition sanctuary where sculptural mass meets absolute weightlessness. Curated by contemporary artist Valerie Starovoit, the collection explores myth, form, and delicate suspension.
+          </p>
+          <div class="hero-ctas">
+            <a href="#gallery" class="btn-primary">Explore Gallery</a>
+            <a href="#curator" class="btn-secondary">The Vision</a>
+          </div>
+        </div>
+        
+        <!-- Showcase card with animated floating effect -->
+        <div class="hero-showcase">
+          <div class="hero-artwork-frame animate-float">
+            <img src="assets/flight_of_ean.png" alt="Flight of the Éan abstract painting by Valerie Starovoit" width="380" height="380">
+            <div class="hero-artwork-meta">
+              <h3 class="hero-artwork-title">Flight of the Éan</h3>
+              <p class="hero-artwork-author">Valerie Starovoit, 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curator & Concept Section (#curator) -->
+    <section class="curator-section" id="curator">
+      <div class="container curator-grid">
+        <!-- Portrait column -->
+        <div class="curator-image-container">
+          <div class="curator-portrait-frame">
+            <img src="assets/valerie_portrait.png" alt="Valerie Starovoit contemporary artist portrait" width="440" height="440">
+          </div>
+        </div>
+        
+        <!-- Concept biography column -->
+        <div class="curator-content">
+          <div>
+            <div class="section-label">Curator & Concept</div>
+            <h2 class="section-title">Valerie Starovoit</h2>
+          </div>
+          
+          <blockquote class="curator-philosophy">
+            "Art is not the representation of form, but rather the suspension of space between gravity and flight."
+          </blockquote>
+          
+          <div class="curator-bio">
+            <p>
+              Based in Dublin, Valerie Starovoit is a 45-year-old contemporary fine artist whose practice reconciles raw materials with ethereal weights. Her works bridge clay, bronze, sand, and gold leaf, creating structural spaces that feel wind-swept and light.
+            </p>
+            <p>
+              Valerie recently graduated from Liberties College in Dublin with top honors, obtaining multiple distinctions in Sculpture, Ceramics, and Painting. She has now been admitted to the prestigious National College of Art and Design (NCAD) to continue her academic research and production.
+            </p>
+          </div>
+
+          <!-- Awards Showcase -->
+          <div class="achievements-box">
+            <h3 class="achievements-title">Honours & Credentials</h3>
+            <ul class="achievement-list">
+              <li class="achievement-item">
+                <div class="achievement-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="achievement-details">
+                  <h4>Winner of the SCC Art, Craft & Design Award 2026</h4>
+                  <p>Awarded for her outstanding granite-clay-bronze sculpture <em>"The Rape of Europe"</em>.</p>
+                </div>
+              </li>
+              <li class="achievement-item">
+                <div class="achievement-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="achievement-details">
+                  <h4>Liberties College Dublin Graduate</h4>
+                  <p>Achieved top marks with consecutive distinctions across Painting and Fine Ceramics.</p>
+                </div>
+              </li>
+              <li class="achievement-item">
+                <div class="achievement-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="achievement-details">
+                  <h4>NCAD Admissions 2026</h4>
+                  <p>Admitted to the National College of Art and Design for advanced Contemporary Fine Art.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery & Shop Section (#gallery) -->
+    <section class="gallery-section" id="gallery">
+      <div class="container">
+        <div class="gallery-header">
+          <div class="gallery-intro">
+            <div class="section-label">Interactive Catalog</div>
+            <h2 class="section-title">The Art Shop</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Acquire exclusive original work direct from Valerie's Dublin studio. Each piece is unique and signed by the artist.
+            </p>
+          </div>
+          
+          <!-- Filter Buttons -->
+          <div class="gallery-filters" role="group" aria-label="Filter Artworks">
+            <button class="filter-btn active" data-filter="all">All Works</button>
+            <button class="filter-btn" data-filter="painting">Paintings</button>
+            <button class="filter-btn" data-filter="sculpture">Sculptures</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Artwork Grid Container -->
+        <div class="gallery-grid" id="artworks-grid">
+          <!-- Artwork cards injected via app.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       Shopping Cart Drawer Layout (Slide-over)
+       ========================================================================== -->
+  <div class="cart-drawer-overlay" id="cart-overlay" role="presentation"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-labelledby="cart-drawer-title">
+    <div class="cart-header">
+      <h3 id="cart-drawer-title">Your Collection</h3>
+      <button class="cart-close-btn" id="cart-close" aria-label="Close Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Scrollable area for added artworks -->
+    <div class="cart-items-container" id="cart-items">
+      <!-- Rendered items go here -->
+    </div>
+    
+    <!-- Cart Summary & Action Footing -->
+    <div class="cart-footer">
+      <div class="cart-summary-row">
+        <span class="cart-summary-label">Total Value</span>
+        <span class="cart-total-price" id="cart-total">&euro;0</span>
+      </div>
+      <button class="btn-primary checkout-btn" id="checkout-trigger">Secure Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Artwork Details Detail Modal Overlay
+       ========================================================================== -->
+  <div class="modal-overlay" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-artwork-title">
+    <div class="modal-wrapper">
+      <button class="modal-close-btn" id="detail-modal-close" aria-label="Close details">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="detail-modal-body" id="detail-modal-content">
+        <!-- Injected details layout from app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Checkout & Revolut Pro Modal Overlay
+       ========================================================================== -->
+  <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title">
+    <div class="modal-wrapper" style="width: 850px;">
+      <button class="modal-close-btn" id="checkout-modal-close" aria-label="Close checkout">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="checkout-modal-body">
+        <h2 class="section-title" id="checkout-modal-title" style="font-size: 2.25rem; margin-bottom: 2rem;">Acquisition Details</h2>
+        
+        <form id="checkout-form" class="checkout-grid">
+          <!-- Left side: Billing & Delivery form details -->
+          <div>
+            <h3 class="checkout-section-title">Collector Registry</h3>
+            
+            <div class="checkout-form-group">
+              <label for="collector-name">Full Name</label>
+              <input type="text" id="collector-name" class="checkout-input" required placeholder="E.g., Aoife Murphy">
+            </div>
+            
+            <div class="checkout-form-group">
+              <label for="collector-email">Email Address</label>
+              <input type="email" id="collector-email" class="checkout-input" required placeholder="aoife@example.ie">
+            </div>
+            
+            <div class="checkout-form-group">
+              <label for="collector-phone">Phone Number</label>
+              <input type="tel" id="collector-phone" class="checkout-input" required placeholder="+353 87 123 4567">
+            </div>
+            
+            <div class="checkout-form-group">
+              <label for="collector-address">Delivery Address (Ireland)</label>
+              <input type="text" id="collector-address" class="checkout-input" required placeholder="Street address, apartment, suite">
+            </div>
+
+            <div class="checkout-form-group">
+              <label for="collector-city">City</label>
+              <input type="text" id="collector-city" class="checkout-input" required placeholder="Dublin, Cork, Galway">
+            </div>
+          </div>
+          
+          <!-- Right side: Revolut Pro Integration instruction panel -->
+          <div>
+            <h3 class="checkout-section-title">Secure Payment</h3>
+            <div class="revolut-integration-container">
+              <div class="revolut-badge">Revolut Pro Account</div>
+              <p class="revolut-instruction">
+                Please complete the payment using our Revolut Pro link, direct username handle, or scan the secure QR code below.
+              </p>
+              
+              <!-- Revolut Pay Button Link -->
+              <a href="https://revolut.me/ean_gallery" target="_blank" rel="noopener noreferrer" class="revolut-pay-btn" id="revolut-pay-link-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+                Revolut Pay Link
+              </a>
+              
+              <div class="revolut-divider">or pay to handle</div>
+              
+              <!-- Username tag -->
+              <div class="revolut-username-box">
+                <span class="revolut-username-label">Revolut @Username</span>
+                @ean_gallery
+              </div>
+              
+              <div class="revolut-divider">or scan code</div>
+              
+              <!-- QR Code placeholder -->
+              <div class="revolut-qr-wrapper">
+                <div class="revolut-qr-placeholder">
+                  <div class="revolut-qr-dots"></div>
+                  <!-- Anchors -->
+                  <div class="revolut-qr-anchor tl"></div>
+                  <div class="revolut-qr-anchor tr"></div>
+                  <div class="revolut-qr-anchor bl"></div>
+                  <!-- Center logo -->
+                  <div class="revolut-qr-center-logo">Éan</div>
+                </div>
+                <span class="revolut-qr-caption">Scan with camera / Revolut app</span>
+              </div>
+            </div>
+            
+            <!-- Summary inside billing -->
+            <div class="checkout-summary-box">
+              <div class="checkout-summary-item">
+                <span style="color: var(--text-secondary);">Works Selected</span>
+                <span id="checkout-item-count" style="font-weight: 500;">0</span>
+              </div>
+              <div class="checkout-summary-total">
+                <span>Total acquisition</span>
+                <span id="checkout-total-value">&euro;0</span>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1.5rem;">Complete Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Order Placed Confirmation Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title">
+    <div class="modal-wrapper" style="width: 600px;">
+      <div class="confirmation-modal-inner">
+        <div class="confirmation-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </div>
+        
+        <h2 class="confirmation-title" id="confirmation-modal-title">Order Requested</h2>
+        <p class="confirmation-message">
+          Thank you for choosing Valerie Starovoit's work. Your acquisition request has been registered. We have sent the confirmation invoice and shipping documentation instructions to your email address. 
+          <br><br>
+          Our gallery manager will reach out within 24 hours to confirm your Revolut Pro payment and coordinate secure white-glove transport.
+        </p>
+        
+        <button class="btn-primary" id="confirmation-close">Return to Gallery</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Footer Section
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Éan ✦</h3>
+          <p>
+            An independent fine art space showcasing contemporary sculptures, ceramics, and paintings by Valerie Starovoit. Dublin, Ireland.
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="footer-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#gallery">Gallery & Shop</a></li>
+            <li><a href="#curator">Curator & Concept</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-title">Exhibition Space</h4>
+          <div class="footer-contact-item">
+            <span>Address</span>
+            Dublin 8, Liberties District, Ireland
+          </div>
+          <div class="footer-contact-item">
+            <span>Inquiries</span>
+            info@ean-gallery.ie
+          </div>
+          <div class="footer-contact-item">
+            <span>Valerie Starovoit</span>
+            artist@valerie-starovoit.ie
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Contemporary Art Gallery "Éan". All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Shipping & Insurance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       Javascript Logic Modules
+       ========================================================================== -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
