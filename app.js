@@ -1,6 +1,6 @@
 /**
- * Éan Gallery - Client-side Interactive Logic (ES Module)
- * Handles Cart, Modal, Filters, Checkout, Navigation, and Accessibility.
+ * Valeriia Starovoit - Interactive Controller (ES Module)
+ * Controls Cart, Modals, Gallery Filters, and Studio Journal Mode.
  */
 
 import { products } from './products.js';
@@ -8,8 +8,9 @@ import { products } from './products.js';
 // ==========================================================================
 // Application State
 // ==========================================================================
-let cart = JSON.parse(localStorage.getItem('ean_gallery_cart')) || [];
+let cart = JSON.parse(localStorage.getItem('valeria_portfolio_cart')) || [];
 let currentFilter = 'all';
+let journalModeActive = false; // State of the signature feature
 
 // Track element that had focus before modal opened (for accessibility)
 let previousActiveElement = null;
@@ -25,9 +26,10 @@ const DOM = {
   mobileNav: document.getElementById('mobile-navigation'),
   menuToggle: document.getElementById('mobile-menu-toggle'),
   
-  // Gallery
+  // Gallery & Interactive Toggle
   artGrid: document.getElementById('artworks-grid'),
   filterBtns: document.querySelectorAll('.filter-btn'),
+  journalToggleBtn: document.getElementById('journal-toggle-btn'),
   
   // Cart Drawer
   cartBtn: document.getElementById('cart-btn'),
@@ -68,18 +70,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================================================
-// Gallery Rendering & Filtering
+// Gallery Rendering & Asymmetrical Layouts
 // ==========================================================================
 function renderGallery() {
   if (!DOM.artGrid) return;
   
-  // Filter products based on current selection
+  // Apply the active state class to the grid based on toggle state
+  if (journalModeActive) {
+    DOM.artGrid.classList.add('journal-mode-active');
+  } else {
+    DOM.artGrid.classList.remove('journal-mode-active');
+  }
+  
+  // Filter products based on active tab
   const filteredProducts = products.filter(product => {
     if (currentFilter === 'all') return true;
     return product.type === currentFilter;
   });
   
-  // Generate HTML structures
+  // Clear grid
   DOM.artGrid.innerHTML = '';
   
   if (filteredProducts.length === 0) {
@@ -90,14 +99,15 @@ function renderGallery() {
   filteredProducts.forEach((product, index) => {
     const card = document.createElement('article');
     card.className = 'art-card';
-    card.style.animationDelay = `${index * 0.1}s`; // Staggered entrance
+    card.style.animationDelay = `${index * 0.1}s`;
     
-    // Check if it's the award winning piece to add a premium badge
+    // Add ribbon to award winner
     const isAwardWinner = product.id === 'rape-of-europe';
     const badgeHTML = isAwardWinner 
       ? `<div class="art-card-badge">SCC Award Winner</div>` 
       : '';
       
+    // Structuring standard commercial elements and the poetic journal overlay inside the card
     card.innerHTML = `
       ${badgeHTML}
       <div class="art-card-img-wrapper">
@@ -106,25 +116,40 @@ function renderGallery() {
           <button class="art-card-overlay-btn" data-id="${product.id}">View Details</button>
         </div>
       </div>
+      
       <div class="art-card-info">
-        <div class="art-card-meta">
-          <span class="art-card-type">${product.type}</span>
-          <span class="art-card-price">&euro;${product.price.toLocaleString()}</span>
+        <!-- Default Commercial Info view -->
+        <div class="art-card-default-view">
+          <div class="art-card-meta">
+            <span class="art-card-type">${product.type}</span>
+            <span class="art-card-price">&euro;${product.price.toLocaleString()}</span>
+          </div>
+          <h3 class="art-card-title">${product.title}</h3>
+          <p class="art-card-medium">${product.medium}</p>
         </div>
-        <h3 class="art-card-title">${product.title}</h3>
-        <p class="art-card-medium">${product.medium}</p>
+        
+        <!-- Interactive tactile journal view -->
+        <div class="art-card-journal-view">
+          <div class="art-card-journal-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 12px; height: 12px; stroke-width: 2;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+            Studio Log
+          </div>
+          <p class="art-card-journal-text">${product.studioNotes}</p>
+          <span class="art-card-journal-prompt">Read Valerie's Thoughts →</span>
+        </div>
       </div>
     `;
     
-    // Clicking the card anywhere opens the details modal
+    // Clicking the card opens the details modal
     card.addEventListener('click', (e) => {
-      // Don't trigger twice if clicking the overlay button directly
       if (!e.target.classList.contains('art-card-overlay-btn')) {
         openDetailModal(product.id);
       }
     });
     
-    // Add specific listener for overlay button
+    // Wire up detail overlay button
     const overlayBtn = card.querySelector('.art-card-overlay-btn');
     if (overlayBtn) {
       overlayBtn.addEventListener('click', (e) => {
@@ -138,36 +163,45 @@ function renderGallery() {
 }
 
 function handleFilterClick(e) {
-  const selectedFilter = e.currentTarget.getAttribute('data-filter');
-  
-  // Update UI classes
   DOM.filterBtns.forEach(btn => btn.classList.remove('active'));
   e.currentTarget.classList.add('active');
   
-  currentFilter = selectedFilter;
+  currentFilter = e.currentTarget.getAttribute('data-filter');
+  renderGallery();
+}
+
+// Toggling the signature Studio Journal Mode
+function toggleJournalMode() {
+  journalModeActive = !journalModeActive;
+  
+  // Update toggle button visuals
+  if (journalModeActive) {
+    DOM.journalToggleBtn.classList.add('active');
+    DOM.journalToggleBtn.setAttribute('aria-checked', 'true');
+  } else {
+    DOM.journalToggleBtn.classList.remove('active');
+    DOM.journalToggleBtn.setAttribute('aria-checked', 'false');
+  }
+  
+  // Re-trigger layout rendering with smooth class fades
   renderGallery();
 }
 
 // ==========================================================================
-// Cart State Operations
+// E-Commerce Cart Logic (LocalStorage)
 // ==========================================================================
 function addToCart(productId) {
   const existingItemIndex = cart.findIndex(item => item.id === productId);
   
+  // Original fine art is 1-of-1: enforce 1 quantity limit per piece
   if (existingItemIndex > -1) {
-    // Limited to 1 quantity per original artwork since each fine art piece is unique
-    // Let's notify client or just keep quantity at 1. Fine art pieces are 1-of-1.
-    // If they want quantity increase (e.g. for prints/general items) we would increment, 
-    // but in Valerie's platform we enforce a strict 1-quantity limit per original piece.
-    alertCollector("This original artwork is a unique, one-of-a-kind piece. You cannot purchase multiple quantities of the same piece.");
+    alertCollector("This original artwork is a unique, one-of-a-kind creation. You cannot purchase multiple quantities of the same piece.");
   } else {
     cart.push({ id: productId, quantity: 1 });
   }
   
   saveCart();
   updateCartUI();
-  
-  // Smoothly slide open the cart drawer so the user receives instant feedback
   openCartDrawer();
 }
 
@@ -181,14 +215,11 @@ function updateQuantity(productId, delta) {
   const item = cart.find(item => item.id === productId);
   if (!item) return;
   
-  // Fine art safety: original unique pieces should stay at 1.
-  // We allow delta to go below 1 which removes it.
   const newQty = item.quantity + delta;
   
   if (newQty <= 0) {
     removeFromCart(productId);
   } else {
-    // Enforce 1 quantity for original artworks
     alertCollector("This original artwork is unique. Quantities are limited to one per piece.");
   }
   
@@ -197,17 +228,15 @@ function updateQuantity(productId, delta) {
 }
 
 function saveCart() {
-  localStorage.setItem('ean_gallery_cart', JSON.stringify(cart));
+  localStorage.setItem('valeria_portfolio_cart', JSON.stringify(cart));
 }
 
 function updateCartUI() {
   if (!DOM.cartCounter || !DOM.cartItems || !DOM.cartTotal) return;
   
-  // Calculate counts
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   DOM.cartCounter.textContent = totalItems;
   
-  // Clear container
   DOM.cartItems.innerHTML = '';
   
   if (cart.length === 0) {
@@ -252,7 +281,6 @@ function updateCartUI() {
       <button class="cart-remove-btn" data-id="${product.id}" aria-label="Remove item">Remove</button>
     `;
     
-    // Wire up events on the dynamic nodes
     cartItem.querySelector('.minus-btn').addEventListener('click', () => updateQuantity(product.id, -1));
     cartItem.querySelector('.plus-btn').addEventListener('click', () => updateQuantity(product.id, 1));
     cartItem.querySelector('.cart-remove-btn').addEventListener('click', () => removeFromCart(product.id));
@@ -263,51 +291,94 @@ function updateCartUI() {
   DOM.cartTotal.textContent = `€${totalValue.toLocaleString()}`;
 }
 
-// Custom sophisticated alert method instead of ugly browser alert
 function alertCollector(message) {
-  // Let's create an elegant temporary status bar or log. For now, a clean browser alert.
   alert(message);
 }
 
 // ==========================================================================
-// Modal Control (Details, Checkout, Confirmation)
+// Modal Operations (Details Modal with Dual Tabs, Checkout)
 // ==========================================================================
 function openDetailModal(productId) {
   const product = products.find(p => p.id === productId);
   if (!product || !DOM.detailModalContent) return;
   
-  // Render details inside the modal
+  // Render details including the dual tab templates inside the modal
   DOM.detailModalContent.innerHTML = `
     <div class="detail-modal-img-side">
       <img src="${product.imageURL}" alt="${product.title}">
     </div>
     <div class="detail-modal-info-side">
-      <span class="detail-modal-type">${product.type}</span>
-      <h2 class="detail-modal-title" id="modal-artwork-title">${product.title}</h2>
-      <div class="detail-modal-price">&euro;${product.price.toLocaleString()}</div>
+      <!-- Tabs Navigation Header -->
+      <div class="modal-tabs">
+        <button class="modal-tab-btn" id="tab-btn-commercial" data-tab="commercial">Collector Info</button>
+        <button class="modal-tab-btn" id="tab-btn-journal" data-tab="journal">Studio Journal</button>
+      </div>
       
-      <div class="detail-modal-specs">
-        <div>
-          <div class="spec-item-label">Medium</div>
-          <div class="spec-item-value">${product.medium}</div>
+      <!-- Collector Info tab sheet -->
+      <div class="modal-tab-content-sheet" id="sheet-commercial">
+        <span class="detail-modal-type">${product.type}</span>
+        <h2 class="detail-modal-title" id="modal-artwork-title">${product.title}</h2>
+        <div class="detail-modal-price">&euro;${product.price.toLocaleString()}</div>
+        
+        <div class="detail-modal-specs">
+          <div>
+            <div class="spec-item-label">Medium</div>
+            <div class="spec-item-value">${product.medium}</div>
+          </div>
+          <div>
+            <div class="spec-item-label">Dimensions</div>
+            <div class="spec-item-value">${product.dimensions}</div>
+          </div>
         </div>
-        <div>
-          <div class="spec-item-label">Dimensions</div>
-          <div class="spec-item-value">${product.dimensions}</div>
+        
+        <p class="detail-modal-desc">${product.description}</p>
+      </div>
+      
+      <!-- Studio Journal tab sheet -->
+      <div class="modal-tab-content-sheet" id="sheet-journal">
+        <span class="detail-modal-type">${product.type} - Journal</span>
+        <h2 class="detail-modal-title" style="font-size: 2.25rem; margin-bottom: 1.5rem;">${product.title}</h2>
+        
+        <div class="journal-sheet-note">
+          <p>${product.studioNotes}</p>
         </div>
       </div>
       
-      <p class="detail-modal-desc">${product.description}</p>
-      
+      <!-- Action triggers -->
       <div class="detail-modal-actions">
-        <button class="btn-primary" id="modal-add-to-cart" data-id="${product.id}" style="flex-grow: 1;">
+        <button class="btn-primary" id="modal-add-to-cart" data-id="${product.id}" style="width: 100%;">
           Add to Collection
         </button>
       </div>
     </div>
   `;
   
-  // Event listeners on dynamic modal content
+  // Tab click management
+  const tabs = DOM.detailModalContent.querySelectorAll('.modal-tab-btn');
+  const sheets = DOM.detailModalContent.querySelectorAll('.modal-tab-content-sheet');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      const selectedTab = e.currentTarget.getAttribute('data-tab');
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      sheets.forEach(s => s.classList.remove('active'));
+      
+      e.currentTarget.classList.add('active');
+      DOM.detailModalContent.querySelector(`#sheet-${selectedTab}`).classList.add('active');
+    });
+  });
+  
+  // Open with the tab that corresponds to current Journal Mode status
+  if (journalModeActive) {
+    DOM.detailModalContent.querySelector('#tab-btn-journal').classList.add('active');
+    DOM.detailModalContent.querySelector('#sheet-journal').classList.add('active');
+  } else {
+    DOM.detailModalContent.querySelector('#tab-btn-commercial').classList.add('active');
+    DOM.detailModalContent.querySelector('#sheet-commercial').classList.add('active');
+  }
+  
+  // Wire up "Add to Collection"
   document.getElementById('modal-add-to-cart').addEventListener('click', (e) => {
     const id = e.currentTarget.getAttribute('data-id');
     addToCart(id);
@@ -320,7 +391,6 @@ function openDetailModal(productId) {
 function openCheckoutModal() {
   if (cart.length === 0) return;
   
-  // Calculate checkout details
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   let totalValue = 0;
   cart.forEach(item => {
@@ -328,43 +398,36 @@ function openCheckoutModal() {
     if (p) totalValue += p.price * item.quantity;
   });
   
-  // Update values in form
   DOM.checkoutItemCount.textContent = `${totalItems} ${totalItems === 1 ? 'piece' : 'pieces'}`;
   DOM.checkoutTotalValue.textContent = `€${totalValue.toLocaleString()}`;
   
-  // Dynamic Revolut link mapping
-  // Pre-populates the URL with the total amount for faster acquisition
+  // Pre-populate Revolut link with checkout total sum
   if (DOM.revolutPayLinkBtn) {
-    DOM.revolutPayLinkBtn.href = `https://revolut.me/ean_gallery/${totalValue}`;
+    DOM.revolutPayLinkBtn.href = `https://revolut.me/valerie_starovoit/${totalValue}`;
   }
   
-  // Close the cart drawer
   closeCartDrawer();
-  
-  // Open the checkout modal
   openModal(DOM.checkoutModal);
 }
 
 function openModal(modalElement) {
   previousActiveElement = document.activeElement;
   modalElement.classList.add('active');
-  document.body.style.overflow = 'hidden'; // Prevent scrolling background
+  document.body.style.overflow = 'hidden';
   
-  // Set focus to the close button inside modal
   const closeBtn = modalElement.querySelector('.modal-close-btn');
   if (closeBtn) closeBtn.focus();
 }
 
 function closeModal(modalElement) {
   modalElement.classList.remove('active');
-  document.body.style.overflow = ''; // Restore scroll
+  document.body.style.overflow = '';
   
   if (previousActiveElement) {
     previousActiveElement.focus();
   }
 }
 
-// Close all active modals/drawers
 function closeEverything() {
   closeModal(DOM.detailModal);
   closeModal(DOM.checkoutModal);
@@ -409,10 +472,9 @@ function closeMobileMenu() {
 }
 
 // ==========================================================================
-// Scroll Management (Header & Scroll Spy)
+// Scroll Management
 // ==========================================================================
 function handleWindowScroll() {
-  // Add subtle shadow & blur padding shift to header on scroll
   if (window.scrollY > 50) {
     DOM.header.classList.add('scrolled');
   } else {
@@ -424,7 +486,7 @@ function setupScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
   
   window.addEventListener('scroll', () => {
-    let scrollPosition = window.scrollY + 120; // Offset for header height
+    let scrollPosition = window.scrollY + 120;
     
     sections.forEach(section => {
       const top = section.offsetTop;
@@ -432,7 +494,6 @@ function setupScrollSpy() {
       const id = section.getAttribute('id');
       
       if (scrollPosition >= top && scrollPosition < top + height) {
-        // Desktop nav active class
         DOM.navLinks.forEach(link => {
           link.classList.remove('active');
           if (link.getAttribute('href') === `#${id}`) {
@@ -448,15 +509,16 @@ function setupScrollSpy() {
 // Event Listeners Configuration
 // ==========================================================================
 function setupEventListeners() {
-  // Window scroll effects
   window.addEventListener('scroll', handleWindowScroll);
   
-  // Navigation filters
   DOM.filterBtns.forEach(btn => {
     btn.addEventListener('click', handleFilterClick);
   });
   
-  // Header Cart Toggle
+  // Interactive Toggle Switch
+  DOM.journalToggleBtn.addEventListener('click', toggleJournalMode);
+  
+  // Cart triggers
   DOM.cartBtn.addEventListener('click', openCartDrawer);
   DOM.cartClose.addEventListener('click', closeCartDrawer);
   DOM.cartOverlay.addEventListener('click', closeCartDrawer);
@@ -464,11 +526,8 @@ function setupEventListeners() {
   // Mobile Hamburger menu toggle
   DOM.menuToggle.addEventListener('click', toggleMobileMenu);
   
-  // Close mobile navigation drawer on link clicks (smooth scrolls)
   DOM.mobileNavLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      closeMobileMenu();
-    });
+    link.addEventListener('click', () => closeMobileMenu());
   });
   
   // Detail Modal Close
@@ -488,12 +547,11 @@ function setupEventListeners() {
   DOM.checkoutForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    // Process "Order Placement"
+    // Clear state
     cart = [];
     saveCart();
     updateCartUI();
     
-    // Close checkout screen and open confirmation
     closeModal(DOM.checkoutModal);
     openModal(DOM.confirmationModal);
   });
@@ -501,7 +559,7 @@ function setupEventListeners() {
   // Confirmation Modal Close
   DOM.confirmationClose.addEventListener('click', () => closeModal(DOM.confirmationModal));
   
-  // Keypress accessibility (Close modal on Escape key)
+  // Escape key close accessibility
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeEverything();
