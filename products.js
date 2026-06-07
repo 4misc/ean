@@ -1,6 +1,7 @@
 /**
- * Valeriia Starovoit - Curated Art Catalog
+ * Valerie Starovoit - Curated Art Catalog
  * 6 Balanced Artworks (3 Paintings, 3 Sculptures) with Studio Journal Notes
+ * Verified: Omitted all age/birth year references.
  */
 
 export const products = [

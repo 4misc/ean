@@ -1,5 +1,5 @@
 /**
- * Valeriia Starovoit - Interactive Controller (ES Module)
+ * Valerie Starovoit - Interactive Controller (ES Module)
  * Controls Cart, Modals, Gallery Filters, and Studio Journal Mode.
  */
 
@@ -8,9 +8,9 @@ import { products } from './products.js';
 // ==========================================================================
 // Application State
 // ==========================================================================
-let cart = JSON.parse(localStorage.getItem('valeria_portfolio_cart')) || [];
+let cart = JSON.parse(localStorage.getItem('valerie_portfolio_cart')) || [];
 let currentFilter = 'all';
-let journalModeActive = false; // State of the signature feature
+let journalModeActive = false; // Signature feature
 
 // Track element that had focus before modal opened (for accessibility)
 let previousActiveElement = null;
@@ -228,7 +228,7 @@ function updateQuantity(productId, delta) {
 }
 
 function saveCart() {
-  localStorage.setItem('valeria_portfolio_cart', JSON.stringify(cart));
+  localStorage.setItem('valerie_portfolio_cart', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -472,7 +472,7 @@ function closeMobileMenu() {
 }
 
 // ==========================================================================
-// Scroll Management
+// Scroll Management (Header & Scroll Spy)
 // ==========================================================================
 function handleWindowScroll() {
   if (window.scrollY > 50) {
